@@ -1,4 +1,4 @@
-using CartonCaps.Referral.Api;
+using CartonCaps.Referrals.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddWebServices(builder.Configuration);

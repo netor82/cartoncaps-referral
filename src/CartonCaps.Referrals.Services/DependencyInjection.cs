@@ -1,4 +1,4 @@
-﻿namespace CartonCaps.Referral.Services;
+﻿namespace CartonCaps.Referrals.Services;
 
 public static class DependencyInjection
 {

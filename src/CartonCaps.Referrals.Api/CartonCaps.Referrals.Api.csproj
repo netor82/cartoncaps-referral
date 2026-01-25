@@ -4,7 +4,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>CartonCaps.Referral.Api</RootNamespace>
+    <RootNamespace>CartonCaps.Referrals.Api</RootNamespace>
     <UserSecretsId>1b75c494-25c6-4b3b-8fcb-d2230bcc1a78</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CartonCaps.Referral.Services\CartonCaps.Referral.Services.csproj" />
+    <ProjectReference Include="..\CartonCaps.Referrals.Services\CartonCaps.Referrals.Services.csproj" />
   </ItemGroup>
 
 </Project>

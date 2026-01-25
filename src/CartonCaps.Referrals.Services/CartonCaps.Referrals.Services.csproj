@@ -7,13 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CartonCaps.Referral.Data\CartonCaps.Referral.Data.csproj" />
+    <ProjectReference Include="..\CartonCaps.Referrals.Data\CartonCaps.Referrals.Data.csproj" />
   </ItemGroup>
 
 </Project>
