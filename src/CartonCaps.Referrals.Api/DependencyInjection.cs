@@ -1,4 +1,7 @@
-﻿namespace CartonCaps.Referrals.Api;
+﻿using CartonCaps.Referrals.Api.Middlewares;
+using CartonCaps.Referrals.Services;
+
+namespace CartonCaps.Referrals.Api;
 
 public static class DependencyInjection
 {
@@ -23,12 +26,13 @@ public static class DependencyInjection
         ;
 
         services.AddControllers();
+        services.AddHttpContextAccessor(); // needed for accessing HttpContext in UserContextMiddleware
 
         // Swagger support
-        services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen();
+        services.AddEndpointsApiExplorer()
+            .AddSwaggerGen();
 
-        return services;
+        return services.AddServices();
     }
 
     /// <summary>
@@ -48,6 +52,9 @@ public static class DependencyInjection
         app.UseHttpsRedirection();
 
         app.MapControllers();
+
+        app.UseMiddleware<UserContextMiddleware>();
+
         return app;
     }
 }

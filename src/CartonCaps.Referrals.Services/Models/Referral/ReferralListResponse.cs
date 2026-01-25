@@ -1,7 +1,7 @@
 ﻿namespace CartonCaps.Referrals.Services.Models.Referral;
 
-public class CreateReferralRequest
+public class ReferralListResponse
 {
     public long ReferrerUserId { get; set; }
-    public long ReferredUserId { get; set; }
+    public ReferralResponse[] Data { get; set; } = [];
 }

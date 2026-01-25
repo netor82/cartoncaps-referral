@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "http": {
+    "http in browser": {
       "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
@@ -9,7 +9,7 @@
       "applicationUrl": "http://localhost:5097",
       "launchUrl": "swagger"
     },
-    "https": {
+    "https in browser": {
       "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
