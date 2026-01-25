@@ -1,0 +1,6 @@
+@cartoncaps_referral_HostAddress = http://localhost:5097/api
+
+GET {{cartoncaps_referral_HostAddress}}/v1/Referrals/
+Accept: application/json
+
+###
