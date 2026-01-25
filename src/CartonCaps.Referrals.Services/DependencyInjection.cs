@@ -1,15 +1,25 @@
-﻿using CartonCaps.Referrals.Services.Interfaces;
+﻿using CartonCaps.Referrals.Data;
+using CartonCaps.Referrals.Services.Interfaces;
 using CartonCaps.Referrals.Services.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CartonCaps.Referrals.Services;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddServices(this IServiceCollection services)
+    public static IServiceCollection AddServices(this IServiceCollection services, IConfigurationManager configuration)
     {
         services.AddScoped<IUserContext, UserContext>();
         services.AddScoped<IReferralService, ReferralService>();
+
+        services.AddDataServices(configuration);
+
         return services;
+    }
+
+    public static void InitDevelopmentEnvironment(this IServiceProvider serviceProvider)
+    {
+        serviceProvider.InitializeDatabase();
     }
 }

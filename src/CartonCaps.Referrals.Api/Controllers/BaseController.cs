@@ -6,11 +6,13 @@ namespace CartonCaps.Referrals.Api.Controllers;
 
 public class BaseController : Controller
 {
-    protected IActionResult HandleResult<T>(GenericResult<T> result)
+    protected IActionResult HandleResult<T>(GenericResult<T> result, bool isCreate = false)
     {
         if (result.Success)
         {
-            return Ok(result.Data);
+            return isCreate
+                ? new ObjectResult(result.Data) { StatusCode = StatusCodes.Status201Created }
+                : Ok(result.Data);
         }
 
         if (result.ErrorCodes.Contains(ErrorCode.Unauthorized))

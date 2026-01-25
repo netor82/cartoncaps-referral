@@ -60,7 +60,10 @@ To be used by `Receipt service` when a referred user registers their first groce
   docker run -d -p 5000:80 --name cartoncaps-referrals cartoncaps-referrals
   ```
 
-
+# Add a migration
+```bash
+dotnet ef migrations add --project CartonCaps.Referrals.Data --startup-project CartonCaps.Referrals.Api --context CartonCaps.Referrals.Data.ReferralDbContext <<Name>>
+```
  
 To do:
 - Describe the endpoints

@@ -11,7 +11,7 @@ public static class DependencyInjection
     /// <param name="services">Service collections to be modified</param>
     /// <param name="configuration"></param>
     /// <returns></returns>
-    public static IServiceCollection AddWebServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddWebServices(this IServiceCollection services, IConfigurationManager configuration)
     {
 
         // api versioning
@@ -32,7 +32,7 @@ public static class DependencyInjection
         services.AddEndpointsApiExplorer()
             .AddSwaggerGen();
 
-        return services.AddServices();
+        return services.AddServices(configuration);
     }
 
     /// <summary>
@@ -47,6 +47,8 @@ public static class DependencyInjection
         {
             app.UseSwagger();
             app.UseSwaggerUI();
+
+            app.Services.InitDevelopmentEnvironment();
         }
 
         app.UseHttpsRedirection();

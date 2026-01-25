@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CartonCaps.Referrals.Data;
 
-public class ReferralDbContext : DbContext
+public class ReferralDbContext(DbContextOptions<ReferralDbContext> options) : DbContext(options)
 {
-    public ICollection<Referral> Referrals { get; set; } = null!;
+    public DbSet<Referral> Referrals { get; set; } = null!;
 }
