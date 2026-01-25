@@ -6,5 +6,7 @@
   </Folder>
   <Project Path="CartonCaps.Referrals.Api/CartonCaps.Referrals.Api.csproj" />
   <Project Path="CartonCaps.Referrals.Data/CartonCaps.Referrals.Data.csproj" Id="bf433678-7353-49e6-b304-4dcd1852056e" />
+  <Project Path="CartonCaps.Referrals.IntegrationTests/CartonCaps.Referrals.IntegrationTests.csproj" Id="af173f65-008c-4f13-a9ab-50a3ad90ad1a" />
   <Project Path="CartonCaps.Referrals.Services/CartonCaps.Referrals.Services.csproj" Id="317f5c5f-208a-425b-9e59-56a6389c8425" />
+  <Project Path="CartonCaps.Referrals.UnitTests/CartonCaps.Referrals.UnitTests.csproj" Id="b1995a6c-8475-44d3-ab99-0d83a37df2df" />
 </Solution>
