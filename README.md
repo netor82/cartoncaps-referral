@@ -72,13 +72,3 @@ To be used by `Receipt service` when a referred user registers their first groce
 ```bash
 dotnet ef migrations add --project CartonCaps.Referrals.Data --startup-project CartonCaps.Referrals.Api --context CartonCaps.Referrals.Data.ReferralDbContext <<Name>>
 ```
- 
-To do:
-- Describe the endpoints
-- Use sql lite
-- Create mock data
-- xUnit - unit tests
-- Integration tests
-- Instructions to run it using docker
-
-* Mention Async processing of the registration of referrals using a message queue (e.g., RabbitMQ, Azure Service Bus) to decouple the registration process from immediate database writes, improving responsiveness and scalability.
