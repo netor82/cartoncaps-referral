@@ -1,6 +1,42 @@
 @cartoncaps_referral_HostAddress = http://localhost:5097/api
 
-GET {{cartoncaps_referral_HostAddress}}/v1/Referrals/
+
+### Endpoint 1: get current user referrals
+
+### Get records for user not authenticated (no header) - expected error
+GET {{cartoncaps_referral_HostAddress}}/v1/Referrals
 Accept: application/json
 
-###
+
+### Get records - OK expected
+GET {{cartoncaps_referral_HostAddress}}/v1/Referrals
+Accept: application/json
+X-User-Id: 1
+
+
+
+### Endpoint 2: Create referral record
+POST {{cartoncaps_referral_HostAddress}}/v1/Referrals
+Content-type: application/json
+
+{
+  "referrerUserId": 1,
+  "referredUserId": 1234
+}
+
+
+### Endpoint 3: Get referrals by UserId
+
+### Get empty result (non-existing user)
+GET {{cartoncaps_referral_HostAddress}}/v1/Referrals/user/120
+Accept: application/json
+
+### Get the record created using Endpoint 2.
+GET {{cartoncaps_referral_HostAddress}}/v1/Referrals/user/1
+Accept: application/json
+
+
+
+### Endpoint 4: Mark referrals as completed
+PATCH {{cartoncaps_referral_HostAddress}}/v1/Referrals/user/1234
+Content-type: application/json

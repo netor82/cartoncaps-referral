@@ -18,7 +18,7 @@ public static class DependencyInjection
         return services;
     }
 
-    public static void InitDevelopmentEnvironment(this IServiceProvider serviceProvider)
+    public static void InitializeEnvironment(this IServiceProvider serviceProvider)
     {
         serviceProvider.InitializeDatabase();
     }

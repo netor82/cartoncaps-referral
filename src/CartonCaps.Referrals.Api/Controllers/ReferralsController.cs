@@ -25,7 +25,7 @@ public class ReferralsController(IUserContext userContext, IReferralService refe
     [EndpointSummary("Gets referrals for a given user. Intended for communication between services.")]
     [ProducesResponseType(typeof(ReferralListResponse), StatusCodes.Status200OK, "application/json", Description = "List of referrals filtered by user.")]
     [ProducesResponseType(typeof(String), StatusCodes.Status401Unauthorized)]
-    public IActionResult GetForCurrentUser()
+    public async Task<IActionResult> GetForCurrentUser()
     {
         GenericResult<ReferralListResponse> result;
 
@@ -35,7 +35,7 @@ public class ReferralsController(IUserContext userContext, IReferralService refe
         }
         else
         {
-            result = referralService.GetReferralsForUser(userContext.UserId);
+            result = await referralService.GetReferralsForUser(userContext.UserId);
         }
         return HandleResult(result);
     }
@@ -50,9 +50,9 @@ public class ReferralsController(IUserContext userContext, IReferralService refe
     [HttpGet("user/{userId:long}")]
     [EndpointSummary("Gets referrals for a given user. Intended for communication between services.")]
     [ProducesResponseType(typeof(ReferralListResponse), StatusCodes.Status200OK, "application/json")]
-    public IActionResult GetByUserId([Description("Id of the referrer user.")] long userId)
+    public async Task<IActionResult> GetByUserId([Description("Id of the referrer user.")] long userId)
     {
-        var result = referralService.GetReferralsForUser(userId);
+        var result = await referralService.GetReferralsForUser(userId);
         return HandleResult(result);
     }
 
@@ -65,9 +65,9 @@ public class ReferralsController(IUserContext userContext, IReferralService refe
     [EndpointSummary("Creates a new entry. Intended for communication between services.")]
     [ProducesResponseType(typeof(ReferralResponse), StatusCodes.Status200OK, "application/json")]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest, "application/json")]
-    public IActionResult CreateReferral([FromBody]CreateReferralRequest request)
+    public async Task<IActionResult> CreateReferral([FromBody]CreateReferralRequest request)
     {
-        var result = referralService.CreateReferral(request);
+        var result = await referralService.CreateReferral(request);
         return HandleResult(result, isCreate: true);
     }
 
@@ -76,11 +76,11 @@ public class ReferralsController(IUserContext userContext, IReferralService refe
     /// </summary>
     /// <param name="referredUserId">Id of the referred user.</param>
     /// <returns></returns>
-    [HttpPatch("user/{referredUserId:long}/complete")]
+    [HttpPatch("user/{referredUserId:long}")]
     [EndpointSummary("Marks referrals associated with the userId as Completed.")]
-    public IActionResult CompleteReferral([Description("Id of the referred user.")] long referredUserId)
+    public async Task<IActionResult> CompleteReferral([Description("Id of the referred user.")] long referredUserId)
     {
-        var result = referralService.CompleteReferral(referredUserId);
+        var result = await referralService.CompleteReferral(referredUserId);
         return HandleResult(result);
     }
 

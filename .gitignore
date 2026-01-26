@@ -42,6 +42,7 @@ ScaffoldingReadMe.txt
 CodeCoverage/
 src/.vs/
 .vs/
+/src/CartonCaps.Referrals.Api/referrals.db*
 
 # MSBuild Binary and Structured Log
 *.binlog

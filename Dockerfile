@@ -12,8 +12,12 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY . .
-RUN dotnet restore
+COPY ./src/CartonCaps.Referrals.Api/ ./CartonCaps.Referrals.Api
+COPY ./src/CartonCaps.Referrals.Data/ ./CartonCaps.Referrals.Data
+COPY ./src/CartonCaps.Referrals.Services/ ./CartonCaps.Referrals.Services
+COPY ./src/Directory.Packages.props .
+RUN dotnet restore "./CartonCaps.Referrals.Api/CartonCaps.Referrals.Api.csproj"
+
 WORKDIR "/src/CartonCaps.Referrals.Api"
 RUN dotnet build "./CartonCaps.Referrals.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 

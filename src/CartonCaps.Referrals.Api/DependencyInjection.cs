@@ -48,8 +48,8 @@ public static class DependencyInjection
             app.UseSwagger();
             app.UseSwaggerUI();
 
-            app.Services.InitDevelopmentEnvironment();
         }
+        app.Services.InitializeEnvironment();
 
         app.UseHttpsRedirection();
 
