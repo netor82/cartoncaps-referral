@@ -103,6 +103,32 @@ public class ReferralServiceTests
     }
 
     [Test]
+    public async Task CreateReferral_UserReferringThemself_ShouldReturnError()
+    {
+        // Arrange
+        var request = new CreateReferralRequest
+        {
+            ReferrerUserId = 1,
+            ReferredUserId = 1
+        };
+
+        // Act
+        var result = await _service.CreateReferral(request);
+
+        // Assert
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(result.Success, Is.False);
+            Assert.That(result.Data, Is.Null);
+            Assert.That(result.Errors, Contains.Item("A user cannot refer themselves"));
+            Assert.That(result.ErrorCodes, Contains.Item(ErrorCode.InvalidOperation));
+        }
+
+        _mockRepository.Verify(r => r.Insert(It.IsAny<Referral>()), Times.Never);
+        _mockRepository.Verify(r => r.Save(), Times.Never);
+    }
+
+    [Test]
     public async Task GetReferralsForUser_WhenReferralsExist_ShouldReturnReferrals()
     {
         // Arrange

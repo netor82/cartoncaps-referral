@@ -14,6 +14,13 @@ public class ReferralService(IGenericRepository<Referral> repository, ILogger<Re
     /// <inheritdoc/>
     public async Task<GenericResult<ReferralResponse>> CreateReferral(CreateReferralRequest request)
     {
+        if (request.ReferredUserId == request.ReferrerUserId)
+        {
+            var result = new GenericResult<ReferralResponse>();
+            result.SetError("A user cannot refer themselves", ErrorCode.InvalidOperation);
+            return result;
+        }
+
         var existingRecords = await repository.Count(repository.DbSet.Where(r =>
             r.ReferredUserId == request.ReferredUserId));
 
