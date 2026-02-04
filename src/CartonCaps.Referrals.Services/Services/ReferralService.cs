@@ -62,11 +62,10 @@ public class ReferralService(IGenericRepository<Referral> repository, ILogger<Re
         //update ReferredUserId using EF bulk update
         var rowsUpdated = await repository.BulkUpdate(
             r => r.ReferredUserId == referredUserId && r.Status == ReferralStatus.Pending,
-            r =>
-            {
-                r.SetProperty(obj => obj.Status, ReferralStatus.Completed);
-                r.SetProperty(obj => obj.CompletedOn, DateTime.UtcNow);
-            });
+            r => r
+                .SetProperty(obj => obj.Status, ReferralStatus.Completed)
+                .SetProperty(obj => obj.CompletedOn, DateTime.UtcNow)
+            );
 
         if (rowsUpdated > 1)
         {

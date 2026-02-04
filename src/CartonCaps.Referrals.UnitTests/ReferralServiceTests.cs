@@ -204,7 +204,7 @@ public class ReferralServiceTests
         long referredUserId = 2;
         _mockRepository.Setup(r => r.BulkUpdate(
             It.IsAny<Expression<Func<Referral, bool>>>(),
-            It.IsAny<Action<UpdateSettersBuilder<Referral>>>()))
+            It.IsAny<Expression<Func<SetPropertyCalls<Referral>, SetPropertyCalls<Referral>>>>()))
             .ReturnsAsync(1);
 
         // Act
@@ -219,7 +219,7 @@ public class ReferralServiceTests
 
         _mockRepository.Verify(r => r.BulkUpdate(
             It.IsAny<Expression<Func<Referral, bool>>>(),
-            It.IsAny<Action<UpdateSettersBuilder<Referral>>>()), Times.Once);
+            It.IsAny<Expression<Func<SetPropertyCalls<Referral>, SetPropertyCalls<Referral>>>>()), Times.Once);
 
         _mockLogger.Verify(
             x => x.Log(
@@ -238,7 +238,7 @@ public class ReferralServiceTests
         long referredUserId = 2;
         _mockRepository.Setup(r => r.BulkUpdate(
             It.IsAny<Expression<Func<Referral, bool>>>(),
-            It.IsAny<Action<UpdateSettersBuilder<Referral>>>()))
+            It.IsAny<Expression<Func<SetPropertyCalls<Referral>, SetPropertyCalls<Referral>>>>()))
             .ReturnsAsync(0);
 
         // Act
@@ -268,7 +268,7 @@ public class ReferralServiceTests
         long referredUserId = 2;
         _mockRepository.Setup(r => r.BulkUpdate(
             It.IsAny<Expression<Func<Referral, bool>>>(),
-            It.IsAny<Action<UpdateSettersBuilder<Referral>>>()))
+            It.IsAny<Expression<Func<SetPropertyCalls<Referral>, SetPropertyCalls<Referral>>>>()))
             .ReturnsAsync(2);
 
         // Act

@@ -56,7 +56,7 @@ Get the shareable deferred deep link for the current user to share with others.
 # How to run the project
 
 ## Visual Studio or other IDE
-- .Net 10.0 SDK is required.
+- .Net 9.0 SDK is required.
 - Open the solution file `CartonCaps.Referrals.sln` in Visual Studio or other IDE.
 - Run the project `CartonCaps.Referrals.Api` using _https in browser_ launch profile.
 

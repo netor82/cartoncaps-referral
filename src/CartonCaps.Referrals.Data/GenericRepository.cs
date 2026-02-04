@@ -35,7 +35,7 @@ public class GenericRepository<EntityType>(ReferralDbContext context) : IGeneric
     }
 
     /// <inheritdoc/>
-    public async Task<int> BulkUpdate(Expression<Func<EntityType, bool>> filter, Action<UpdateSettersBuilder<EntityType>> propertySetter)
+    public async Task<int> BulkUpdate(Expression<Func<EntityType, bool>> filter, Expression<Func<SetPropertyCalls<EntityType>, SetPropertyCalls<EntityType>>> propertySetter)
     {
         var result = await dbSet.Where(filter).ExecuteUpdateAsync(propertySetter);
         return result;

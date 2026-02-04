@@ -26,7 +26,7 @@ public class ReferralsController(
     /// <response code="401">User is not authenticated.</response>
     [HttpGet()]
     [EndpointSummary("Gets referrals for a given user. Intended for communication between services.")]
-    [ProducesResponseType(typeof(ReferralListResponse), StatusCodes.Status200OK, "application/json", Description = "List of referrals filtered by user.")]
+    [ProducesResponseType(typeof(ReferralListResponse), StatusCodes.Status200OK, "application/json")]
     [ProducesResponseType(typeof(String), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> GetForCurrentUser()
     {

@@ -28,7 +28,7 @@ public interface IGenericRepository<EntityType> where EntityType : class
     /// <param name="filter"></param>
     /// <param name="propertySetter"></param>
     /// <returns>Total number of rows updated in the database</returns>
-    Task<int> BulkUpdate(Expression<Func<EntityType, bool>> filter, Action<UpdateSettersBuilder<EntityType>> propertySetter);
+    Task<int> BulkUpdate(Expression<Func<EntityType, bool>> filter, Expression<Func<SetPropertyCalls<EntityType>, SetPropertyCalls<EntityType>>> propertySetter);
 
     /// <summary>
     /// Asynchronously saves the current changes to the underlying data store.
