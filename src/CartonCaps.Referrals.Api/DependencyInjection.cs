@@ -23,7 +23,6 @@ public static class DependencyInjection
             options.GroupNameFormat = "'v'VVV";
             options.SubstituteApiVersionInUrl = true;
         });
-        ;
 
         services.AddControllers();
         services.AddHttpContextAccessor(); // needed for accessing HttpContext in UserContextMiddleware

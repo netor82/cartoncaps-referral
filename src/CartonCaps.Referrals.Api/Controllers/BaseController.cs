@@ -22,7 +22,7 @@ public class BaseController : Controller
 
         if (result.ErrorCodes.Contains(ErrorCode.NotFound))
         {
-            return Unauthorized(string.Join('\n', result.Errors));
+            return NotFound(string.Join('\n', result.Errors));
         }
 
         return BadRequest(string.Join('\n', result.Errors));

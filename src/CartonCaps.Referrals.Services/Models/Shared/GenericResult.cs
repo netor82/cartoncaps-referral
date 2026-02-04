@@ -3,7 +3,7 @@
 namespace CartonCaps.Referrals.Services.Models.Shared;
 
 /// <summary>
-/// Represents the result of an operation that can succeed or fai.
+/// Represents the result of an operation that can succeed or fail.
 /// </summary>
 /// <remarks>Use this class to encapsulate the outcome of an operation, including any returned data, success
 /// status, and error details. Use this instead of throwing exceptions.</remarks>

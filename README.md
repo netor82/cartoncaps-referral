@@ -15,8 +15,8 @@
    - For the scope of this exercise, the `UserId` will be in the request header `X-User-Id` instead.
 1. There are other services like `User sevice` and `Receipt serice`, that are out of the scope of this exercise.
 1. Referral code is saved in the `User service`, and it's created when the user registers.
-   - Note: I'm assuming the same _shareable deferred deep links_ can be shared with multiple peopla
-      as the text message or the email can be forwared to multiple destinations.
+   - Note: I'm assuming the same _shareable deferred deep links_ can be shared with multiple people
+      as the text message or the email can be forwarded to multiple destinations.
 1. `User service` will be in charge of validating the referral code during user registration and to
     resolve the `UserId` given the referral code.
 1. `User service` will call this `Referrals service` to create the referral after a new user registers

@@ -6,7 +6,6 @@ using CartonCaps.Referrals.Services.Models.Referral;
 using CartonCaps.Referrals.Services.Services;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.Extensions.Logging;
-//using Microsoft.Testing.Platform.Logging;
 using Moq;
 using System.Linq.Expressions;
 
