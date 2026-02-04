@@ -14,6 +14,17 @@ namespace CartonCaps.Referrals.Services.Services
             return new GenericResult<User>(userClient.GetUser(id));
         }
 
+        public GenericResult<List<User>> GetUsersByIds(long[] userIds)
+        {
+            List<User> result = [.. 
+                userIds
+                .Select(GetUser)
+                .Where(x => x.Success)
+                .Select(x => x.Data!)];
+
+            return new GenericResult<List<User>>(result);
+        }
+
         public GenericResult<string> GetUserReferralLink(long userId)
         {
             var user = userClient.GetUser(userId);

@@ -13,6 +13,14 @@ public interface IUserService
     GenericResult<User> GetUser(long id);
 
     /// <summary>
+    /// Retrieves the users associated with the specified unique identifiers.
+    /// </summary>
+    /// <param name="userIds">An array of unique identifiers for the users to retrieve. Must not be empty.</param>
+    /// <returns>A <see cref="GenericResult{List{User}}"/> containing the users if found; otherwise, a result indicating failure.</returns>
+    GenericResult<List<User>> GetUsersByIds(long[] userIds);
+
+
+    /// <summary>
     /// Gets or creates a referral link for given user id.
     /// </summary>
     /// <param name="userId">Id of the user.</param>

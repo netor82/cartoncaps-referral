@@ -9,7 +9,10 @@ using Microsoft.Extensions.Logging;
 
 namespace CartonCaps.Referrals.Services.Services;
 
-public class ReferralService(IGenericRepository<Referral> repository, ILogger<ReferralService> logger) : IReferralService
+public class ReferralService(
+    IGenericRepository<Referral> repository,
+    IUserService userService,
+    ILogger<ReferralService> logger) : IReferralService
 {
     /// <inheritdoc/>
     public async Task<GenericResult<ReferralResponse>> CreateReferral(CreateReferralRequest request)
@@ -49,11 +52,53 @@ public class ReferralService(IGenericRepository<Referral> repository, ILogger<Re
     {
         var query = repository.DbSet.Where(r => r.ReferrerUserId == userId);
         var data = await repository.ToList(query);
-        return new GenericResult<ReferralListResponse>(new ReferralListResponse
+
+        var result = new ReferralListResponse
         {
             ReferrerUserId = userId,
-            Data = data.Select(d => ReferralResponse.FromDataModel(d)!).ToArray()
-        });
+            Data = [.. data.Select(d => ReferralResponse.FromDataModel(d)!)]
+        };
+        HydrateUserInformation(userId, data, result);
+
+        return new GenericResult<ReferralListResponse>(result);
+    }
+
+    private void HydrateUserInformation(long userId, List<Referral> data, ReferralListResponse result)
+    {
+        //get all unique user IDs to fetch user info in a single call
+        var userIds = data.Select(d => d.ReferredUserId)
+                    .Append(userId)
+                    .Distinct()
+                    .ToArray();
+
+        var users = userService
+            .GetUsersByIds(userIds)
+            .Data!
+            .ToDictionary(x => x.Id, x => x);
+
+        //map user info back to referrals
+        foreach (var referral in result.Data)
+        {
+            if (users.TryGetValue(referral.ReferredUserId, out var referredUser))
+            {
+                referral.FirstName = referredUser.FirstName;
+                referral.LastName = referredUser.LastName;
+            }
+            else
+            {
+                logger.LogWarning("Referrer user with ID {id} not found in User Service", referral.ReferredUserId);
+            }
+        }
+
+        //map referrer user info
+        if (users.TryGetValue(userId, out var referrerUser))
+        {
+            result.ReferralCode = referrerUser.ReferralCode;
+        }
+        else
+        {
+            logger.LogWarning("Referrer user with ID {id} not found in User Service", userId);
+        }
     }
 
     /// <inheritdoc/>
