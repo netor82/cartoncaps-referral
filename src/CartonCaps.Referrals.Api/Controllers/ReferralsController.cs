@@ -11,7 +11,10 @@ namespace CartonCaps.Referrals.Api.Controllers;
 [ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
-public class ReferralsController(IUserContext userContext, IReferralService referralService) : BaseController
+public class ReferralsController(
+    IUserContext userContext,
+    IReferralService referralService,
+    IUserService userService) : BaseController
 {
 
     /// <summary>
@@ -84,5 +87,23 @@ public class ReferralsController(IUserContext userContext, IReferralService refe
         return HandleResult(result);
     }
 
+    [HttpGet("referral-link")]
+    [EndpointSummary("Gets or creates a referral link for user id.")]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK, "application/json")]
+    [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> GetUserReferralLink()
+    {
+        GenericResult<string> result;
+
+        if (!userContext.IsAuthenticated)
+        {
+            result = new GenericResult<string>("User is not authenticated", ErrorCode.Unauthorized);
+        }
+        else
+        {
+            result = userService.GetUserReferralLink(userContext.UserId);
+        }
+        return HandleResult(result);
+    }
 }
 

@@ -40,3 +40,9 @@ Accept: application/json
 ### Endpoint 4: Mark referrals as completed
 PATCH {{cartoncaps_referral_HostAddress}}/v1/Referrals/user/1234
 Content-type: application/json
+
+
+### Endpoint 5: Get referral sharable link
+GET {{cartoncaps_referral_HostAddress}}/v1/Referrals/referral-link
+X-User-Id: 1
+

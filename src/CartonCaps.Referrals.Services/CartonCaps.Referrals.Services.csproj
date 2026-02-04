@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bogus" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CartonCaps.Referrals.Data\CartonCaps.Referrals.Data.csproj" />
   </ItemGroup>
 

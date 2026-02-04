@@ -32,6 +32,7 @@
 1. The API is behind a gateway, prohibiting direct public access to it.
    - Some endpoints are intended for internal communication between services only and should not be
      exposed publicly.
+1. Error handling of external services are out of the scope of this exercise.
 
 # Endpoints
 
@@ -48,6 +49,9 @@ To be used by `User service` when a new user registers with a valid referral cod
 ## 4. Complete user referral
 Intended for communication between services.  This endpoint should not be exposed publicly.
 To be used by `Receipt service` when a referred user registers their first grocery receipt.
+
+## 5. Get shareable referral for the Share feature
+Get the shareable deferred deep link for the current user to share with others.
 
 # How to run the project
 

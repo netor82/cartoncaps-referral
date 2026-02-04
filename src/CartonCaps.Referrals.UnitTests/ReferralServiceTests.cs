@@ -187,9 +187,9 @@ public class ReferralServiceTests
         // Act
         var result = await _service.GetReferralsForUser(userId);
 
+        // Assert
         using (Assert.EnterMultipleScope())
         {
-            // Assert
             Assert.That(result.Success, Is.True);
             Assert.That(result.Data, Is.Not.Null);
             Assert.That(result.Data?.ReferrerUserId, Is.EqualTo(userId));
