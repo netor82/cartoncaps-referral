@@ -2,7 +2,10 @@
 using CartonCaps.Referrals.Data.Enums;
 using CartonCaps.Referrals.Data.Models;
 using CartonCaps.Referrals.Services.Enums;
+using CartonCaps.Referrals.Services.Interfaces;
 using CartonCaps.Referrals.Services.Models.Referral;
+using CartonCaps.Referrals.Services.Models.Shared;
+using CartonCaps.Referrals.Services.Models.User;
 using CartonCaps.Referrals.Services.Services;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.Extensions.Logging;
@@ -15,15 +18,17 @@ namespace CartonCaps.Referrals.UnitTests;
 public class ReferralServiceTests
 {
     private Mock<IGenericRepository<Referral>> _mockRepository;
+    private Mock<IUserService> _mockUserService;
     private Mock<ILogger<ReferralService>> _mockLogger;
     private ReferralService _service;
 
     [SetUp]
     public void Setup()
     {
-        _mockRepository = new Mock<IGenericRepository<Referral>>();
+        _mockRepository = new Mock<IGenericRepository<Referral>>(MockBehavior.Strict);
+        _mockUserService = new Mock<IUserService>(MockBehavior.Strict);
         _mockLogger = new Mock<ILogger<ReferralService>>();
-        _service = new ReferralService(_mockRepository.Object, _mockLogger.Object);
+        _service = new ReferralService(_mockRepository.Object, _mockUserService.Object, _mockLogger.Object);
     }
 
     [Test]
@@ -157,6 +162,17 @@ public class ReferralServiceTests
         var mockDbSet = referrals.AsQueryable();
         _mockRepository.Setup(r => r.DbSet).Returns(mockDbSet);
         _mockRepository.Setup(r => r.ToList(It.IsAny<IQueryable<Referral>>())).ReturnsAsync(referrals);
+        _mockUserService.Setup(s => s.GetUsersByIds(It.IsAny<long[]>())).Returns<long[]>(userIds =>
+            new GenericResult<List<User>>(
+                userIds.Select(userId => new User()
+                {
+                    Id = userId,
+                    FirstName = "John",
+                    LastName = "Doe",
+                    ReferralCode = "REF123"
+                })
+                .ToList())
+        );
 
         // Act
         var result = await _service.GetReferralsForUser(userId);
@@ -183,6 +199,17 @@ public class ReferralServiceTests
         var mockDbSet = emptyReferrals.AsQueryable();
         _mockRepository.Setup(r => r.DbSet).Returns(mockDbSet);
         _mockRepository.Setup(r => r.ToList(It.IsAny<IQueryable<Referral>>())).ReturnsAsync(emptyReferrals);
+        _mockUserService.Setup(s => s.GetUsersByIds(It.IsAny<long[]>())).Returns<long[]>(userIds =>
+            new GenericResult<List<User>>(
+                userIds.Select(userId => new User()
+                {
+                    Id = userId,
+                    FirstName = "John",
+                    LastName = "Doe",
+                    ReferralCode = "REF123"
+                })
+                .ToList())
+        );
 
         // Act
         var result = await _service.GetReferralsForUser(userId);
@@ -194,6 +221,7 @@ public class ReferralServiceTests
             Assert.That(result.Data, Is.Not.Null);
             Assert.That(result.Data?.ReferrerUserId, Is.EqualTo(userId));
             Assert.That(result.Data?.Data, Is.Empty);
+            _mockUserService.Verify(s => s.GetUsersByIds(It.IsAny<long[]>()), Times.Once);
         }
     }
 

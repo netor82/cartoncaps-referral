@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CartonCaps.Referrals.Api\CartonCaps.Referrals.Api.csproj" />
     <ProjectReference Include="..\CartonCaps.Referrals.Data\CartonCaps.Referrals.Data.csproj" />
     <ProjectReference Include="..\CartonCaps.Referrals.Services\CartonCaps.Referrals.Services.csproj" />
   </ItemGroup>
