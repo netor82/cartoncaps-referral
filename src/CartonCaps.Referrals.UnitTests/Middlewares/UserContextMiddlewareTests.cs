@@ -3,7 +3,7 @@ using CartonCaps.Referrals.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Moq;
 
-namespace CartonCaps.Referrals.UnitTests;
+namespace CartonCaps.Referrals.UnitTests.Middlewares;
 
 [TestFixture]
 public class UserContextMiddlewareTests

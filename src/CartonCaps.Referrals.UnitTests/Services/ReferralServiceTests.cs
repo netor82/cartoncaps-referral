@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using System.Linq.Expressions;
 
-namespace CartonCaps.Referrals.UnitTests;
+namespace CartonCaps.Referrals.UnitTests.Services;
 
 [TestFixture]
 public class ReferralServiceTests
