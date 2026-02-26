@@ -30,11 +30,11 @@ public class ReferralsController(
     [ProducesResponseType(typeof(String), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> GetForCurrentUser()
     {
-        GenericResult<ReferralListResponse> result;
+        ResultOf<ReferralListResponse> result;
 
         if (!userContext.IsAuthenticated)
         {
-            result = new GenericResult<ReferralListResponse>("User is not authenticated", ErrorCode.Unauthorized);
+            result = new ResultOf<ReferralListResponse>("User is not authenticated", ErrorCode.Unauthorized);
         }
         else
         {
@@ -93,11 +93,11 @@ public class ReferralsController(
     [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> GetUserReferralLink()
     {
-        GenericResult<string> result;
+        ResultOf<string> result;
 
         if (!userContext.IsAuthenticated)
         {
-            result = new GenericResult<string>("User is not authenticated", ErrorCode.Unauthorized);
+            result = new ResultOf<string>("User is not authenticated", ErrorCode.Unauthorized);
         }
         else
         {

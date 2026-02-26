@@ -163,7 +163,7 @@ public class ReferralServiceTests
         _mockRepository.Setup(r => r.DbSet).Returns(mockDbSet);
         _mockRepository.Setup(r => r.ToList(It.IsAny<IQueryable<Referral>>())).ReturnsAsync(referrals);
         _mockUserService.Setup(s => s.GetUsersByIds(It.IsAny<long[]>())).Returns<long[]>(userIds =>
-            new GenericResult<List<User>>(
+            new List<User>(
                 userIds.Select(userId => new User()
                 {
                     Id = userId,
@@ -200,7 +200,7 @@ public class ReferralServiceTests
         _mockRepository.Setup(r => r.DbSet).Returns(mockDbSet);
         _mockRepository.Setup(r => r.ToList(It.IsAny<IQueryable<Referral>>())).ReturnsAsync(emptyReferrals);
         _mockUserService.Setup(s => s.GetUsersByIds(It.IsAny<long[]>())).Returns<long[]>(userIds =>
-            new GenericResult<List<User>>(
+            new List<User>(
                 userIds.Select(userId => new User()
                 {
                     Id = userId,

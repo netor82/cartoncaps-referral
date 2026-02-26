@@ -48,7 +48,7 @@ public class ReferralsControllerTests
                 new() { ReferredUserId = 456 }
             ]
         };
-        var result = new GenericResult<ReferralListResponse>(expectedResponse);
+        var result = expectedResponse;
 
         _mockUserContext.Setup(x => x.IsAuthenticated).Returns(true);
         _mockUserContext.Setup(x => x.UserId).Returns(userId);
@@ -85,7 +85,7 @@ public class ReferralsControllerTests
     {
         // Arrange
         const long userId = 123;
-        var result = new GenericResult<ReferralListResponse>("Error occurred", ErrorCode.GenericError);
+        var result = new ResultOf<ReferralListResponse>("Error occurred", ErrorCode.GenericError);
 
         _mockUserContext.Setup(x => x.IsAuthenticated).Returns(true);
         _mockUserContext.Setup(x => x.UserId).Returns(userId);
@@ -116,7 +116,7 @@ public class ReferralsControllerTests
                 new() { ReferredUserId = 456 }
             ]
         };
-        var result = new GenericResult<ReferralListResponse>(expectedResponse);
+        var result = expectedResponse;
 
         _mockReferralService.Setup(x => x.GetReferralsForUser(userId)).ReturnsAsync(result);
 
@@ -135,7 +135,7 @@ public class ReferralsControllerTests
     {
         // Arrange
         const long userId = 999;
-        var result = new GenericResult<ReferralListResponse>("User not found", ErrorCode.NotFound);
+        var result = new ResultOf<ReferralListResponse>("User not found", ErrorCode.NotFound);
 
         _mockReferralService.Setup(x => x.GetReferralsForUser(userId)).ReturnsAsync(result);
 
@@ -153,7 +153,7 @@ public class ReferralsControllerTests
     {
         // Arrange
         const long userId = 123;
-        var result = new GenericResult<ReferralListResponse>("Error occurred", ErrorCode.GenericError);
+        var result = new ResultOf<ReferralListResponse>("Error occurred", ErrorCode.GenericError);
 
         _mockReferralService.Setup(x => x.GetReferralsForUser(userId)).ReturnsAsync(result);
 
@@ -181,7 +181,7 @@ public class ReferralsControllerTests
         {
             ReferredUserId = request.ReferredUserId
         };
-        var result = new GenericResult<ReferralResponse>(expectedResponse);
+        var result = expectedResponse;
 
         _mockReferralService.Setup(x => x.CreateReferral(request)).ReturnsAsync(result);
 
@@ -205,7 +205,7 @@ public class ReferralsControllerTests
             ReferrerUserId = 123,
             ReferredUserId = 456
         };
-        var result = new GenericResult<ReferralResponse>("Referral already exists", ErrorCode.InvalidOperation);
+        var result = new ResultOf<ReferralResponse>("Referral already exists", ErrorCode.InvalidOperation);
 
         _mockReferralService.Setup(x => x.CreateReferral(request)).ReturnsAsync(result);
 
@@ -227,7 +227,7 @@ public class ReferralsControllerTests
             ReferrerUserId = 123,
             ReferredUserId = 456
         };
-        var result = new GenericResult<ReferralResponse>("Unauthorized", ErrorCode.Unauthorized);
+        var result = new ResultOf<ReferralResponse>("Unauthorized", ErrorCode.Unauthorized);
 
         _mockReferralService.Setup(x => x.CreateReferral(request)).ReturnsAsync(result);
 
@@ -249,7 +249,7 @@ public class ReferralsControllerTests
         const long referredUserId = 789;
 
         _mockReferralService.Setup(x => x.CompleteReferral(It.IsAny<long>()))
-            .ReturnsAsync(new GenericResult<int>(1));
+            .ReturnsAsync(1);
 
         // Act
         var actionResult = await _controller.CompleteReferral(referredUserId);
@@ -271,7 +271,7 @@ public class ReferralsControllerTests
         // Arrange
         const long userId = 123;
         const string expectedLink = "https://example.com/referral/abc123";
-        var result = new GenericResult<string>(expectedLink);
+        var result = expectedLink;
 
         _mockUserContext.Setup(x => x.IsAuthenticated).Returns(true);
         _mockUserContext.Setup(x => x.UserId).Returns(userId);
@@ -308,7 +308,7 @@ public class ReferralsControllerTests
     {
         // Arrange
         const long userId = 123;
-        var result = new GenericResult<string>("Error generating link", ErrorCode.GenericError);
+        var result = new ResultOf<string>("Error generating link", ErrorCode.GenericError);
 
         _mockUserContext.Setup(x => x.IsAuthenticated).Returns(true);
         _mockUserContext.Setup(x => x.UserId).Returns(userId);
@@ -328,7 +328,7 @@ public class ReferralsControllerTests
     {
         // Arrange
         const long userId = 999;
-        var result = new GenericResult<string>("User not found", ErrorCode.NotFound);
+        var result = new ResultOf<string>("User not found", ErrorCode.NotFound);
 
         _mockUserContext.Setup(x => x.IsAuthenticated).Returns(true);
         _mockUserContext.Setup(x => x.UserId).Returns(userId);

@@ -9,12 +9,12 @@ namespace CartonCaps.Referrals.Services.Services
         IUserClient userClient,
         IDeferredDeepLinkClient deferredDeepLinkClient) : IUserService
     {
-        public GenericResult<User> GetUser(long id)
+        public ResultOf<User> GetUser(long id)
         {
-            return new GenericResult<User>(userClient.GetUser(id));
+            return userClient.GetUser(id);
         }
 
-        public GenericResult<List<User>> GetUsersByIds(long[] userIds)
+        public ResultOf<List<User>> GetUsersByIds(long[] userIds)
         {
             List<User> result = [.. 
                 userIds
@@ -22,21 +22,21 @@ namespace CartonCaps.Referrals.Services.Services
                 .Where(x => x.Success)
                 .Select(x => x.Data!)];
 
-            return new GenericResult<List<User>>(result);
+            return result;
         }
 
-        public GenericResult<string> GetUserReferralLink(long userId)
+        public ResultOf<string> GetUserReferralLink(long userId)
         {
             var user = userClient.GetUser(userId);
             var deepLinkResult = deferredDeepLinkClient.GetDeferredLink(user.ReferralCode);
             
             if (string.IsNullOrEmpty(deepLinkResult))
             {
-                var result = new GenericResult<string>();
+                var result = new ResultOf<string>();
                 result.SetError("Failed to create deferred deep link", ErrorCode.GenericError);
                 return result;
             }
-            return new GenericResult<string>(deepLinkResult);
+            return deepLinkResult;
         }
     }
 }

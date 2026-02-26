@@ -6,7 +6,7 @@ namespace CartonCaps.Referrals.Api.Controllers;
 
 public class BaseController : Controller
 {
-    protected IActionResult HandleResult<T>(GenericResult<T> result, bool isCreate = false)
+    protected IActionResult HandleResult<T>(ResultOf<T> result, bool isCreate = false)
     {
         if (result.Success)
         {

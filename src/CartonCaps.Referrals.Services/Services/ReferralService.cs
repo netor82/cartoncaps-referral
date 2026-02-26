@@ -15,11 +15,11 @@ public class ReferralService(
     ILogger<ReferralService> logger) : IReferralService
 {
     /// <inheritdoc/>
-    public async Task<GenericResult<ReferralResponse>> CreateReferral(CreateReferralRequest request)
+    public async Task<ResultOf<ReferralResponse>> CreateReferral(CreateReferralRequest request)
     {
         if (request.ReferredUserId == request.ReferrerUserId)
         {
-            var result = new GenericResult<ReferralResponse>();
+            var result = new ResultOf<ReferralResponse>();
             result.SetError("A user cannot refer themselves", ErrorCode.InvalidOperation);
             return result;
         }
@@ -29,7 +29,7 @@ public class ReferralService(
 
         if (existingRecords > 0)
         {
-            var result = new GenericResult<ReferralResponse>();
+            var result = new ResultOf<ReferralResponse>();
             result.SetError("A referral for the referred user already exists.", ErrorCode.InvalidOperation);
             return result;
         }
@@ -44,11 +44,11 @@ public class ReferralService(
         };
         await repository.Insert(newData);
         await repository.Save();
-        return new GenericResult<ReferralResponse>(ReferralResponse.FromDataModel(newData)!);
+        return ReferralResponse.FromDataModel(newData)!;
     }
 
     /// <inheritdoc/>
-    public async Task<GenericResult<ReferralListResponse>> GetReferralsForUser(long userId)
+    public async Task<ResultOf<ReferralListResponse>> GetReferralsForUser(long userId)
     {
         var query = repository.DbSet.Where(r => r.ReferrerUserId == userId);
         var data = await repository.ToList(query);
@@ -60,7 +60,7 @@ public class ReferralService(
         };
         HydrateUserInformation(userId, data, result);
 
-        return new GenericResult<ReferralListResponse>(result);
+        return result;
     }
 
     private void HydrateUserInformation(long userId, List<Referral> data, ReferralListResponse result)
@@ -102,7 +102,7 @@ public class ReferralService(
     }
 
     /// <inheritdoc/>
-    public async Task<GenericResult<int>> CompleteReferral(long referredUserId)
+    public async Task<ResultOf<int>> CompleteReferral(long referredUserId)
     {
         //update ReferredUserId using EF bulk update
         var rowsUpdated = await repository.BulkUpdate(
@@ -121,6 +121,6 @@ public class ReferralService(
             logger.LogInformation("No records marked as completed for UserId {id}", referredUserId);
         }
 
-        return new GenericResult<int>(rowsUpdated);
+        return rowsUpdated;
     }
 }

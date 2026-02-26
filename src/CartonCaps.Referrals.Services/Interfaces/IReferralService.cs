@@ -10,19 +10,19 @@ public interface IReferralService
     /// </summary>
     /// <param name="userId">Referrer user id.</param>
     /// <returns></returns>
-    Task<GenericResult<ReferralListResponse>> GetReferralsForUser(long userId);
+    Task<ResultOf<ReferralListResponse>> GetReferralsForUser(long userId);
 
     /// <summary>
     /// Creates a new referral record.
     /// </summary>
     /// <param name="request"></param>
     /// <returns>The created record</returns>
-    Task<GenericResult<ReferralResponse>> CreateReferral(CreateReferralRequest request);
+    Task<ResultOf<ReferralResponse>> CreateReferral(CreateReferralRequest request);
 
     /// <summary>
     /// Marks the referrals as complete for the referred user.
     /// </summary>
     /// <param name="referredUserId">Given referred user id.</param>
     /// <returns>Number of records updated.</returns>
-    Task<GenericResult<int>> CompleteReferral(long referredUserId);
+    Task<ResultOf<int>> CompleteReferral(long referredUserId);
 }
